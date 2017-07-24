@@ -36,4 +36,17 @@ public abstract class StageAdopter implements Named, Function<LifecyclePlan, Sta
 		return stage.apply(plan);
 	}
 
+	private final String name;
+
+	public StageAdopter(String name) {
+		Objects.requireNonNull(name);
+
+		this.name = name;
+	}
+
+	@Override
+	public final String getName() {
+		return name;
+	}
+
 }

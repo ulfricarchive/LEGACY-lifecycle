@@ -1,11 +1,10 @@
 package com.ulfric.lifecycle.service;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ulfric.data.config.Configured;
 import com.ulfric.data.config.Settings;
-import com.ulfric.lifecycle.Lifecycle;
+import com.ulfric.dragoon.extension.inject.Inject;
 import com.ulfric.lifecycle.adopter.StageAdopter;
 import com.ulfric.lifecycle.model.LifecyclePlan;
 import com.ulfric.lifecycle.model.LifecyclePlanEntry;
@@ -18,7 +17,8 @@ import com.ulfric.servix.services.lifecycle.Stage;
 @Configured
 public class HcfLifecycle implements LifecycleService {
 
-	private final Scheduler scheduler = new Scheduler(JavaPlugin.getPlugin(Lifecycle.class)); // TODO inject
+	@Inject
+	private Scheduler scheduler;
 
 	@Settings
 	private LifecyclePlanEntry plan;
@@ -76,7 +76,12 @@ public class HcfLifecycle implements LifecycleService {
 		if (stageTransition != null) {
 			stageTransition.cancel();
 		}
-		stageTransition = scheduler.runOnMainThreadLater(this::nextStage, newStage.timeRemaining());
+
+		if (newStage != null) {
+			stageTransition = scheduler.runOnMainThreadLater(this::nextStage, newStage.timeRemaining());
+		} else {
+			stageTransition = null;
+		}
 	}
 
 }

@@ -10,6 +10,10 @@ import java.time.Instant;
 
 public class EndOfTheWorldAdopter extends StageAdopter { // TODO duplicate code with StartOfTheWorldAdopter
 
+	public EndOfTheWorldAdopter() {
+		super("EndOfTheWorld");
+	}
+
 	@Override
 	public Stage apply(LifecyclePlan plan) {
 		Instant start = plan instanceof LifecyclePlanEntry ? ((LifecyclePlanEntry) plan).getScheduledStart() : null;
