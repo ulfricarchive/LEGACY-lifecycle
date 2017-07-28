@@ -1,5 +1,6 @@
 package com.ulfric.lifecycle.stage;
 
+import com.ulfric.commons.time.TemporalHelper;
 import com.ulfric.lifecycle.adopter.StageAdopter;
 import com.ulfric.lifecycle.model.LifecyclePlan;
 import com.ulfric.lifecycle.model.LifecyclePlanEntry;
@@ -17,7 +18,7 @@ public class StartOfTheWorldAdopter extends StageAdopter { // TODO duplicate cod
 	@Override
 	public Stage apply(LifecyclePlan plan) {
 		Instant start = plan instanceof LifecyclePlanEntry ? ((LifecyclePlanEntry) plan).getScheduledStart() : null;
-		start = start == null ? Instant.now() : start; // TODO any other validation?
+		start = start == null ? TemporalHelper.instantNow() : start; // TODO any other validation?
 
 		Duration duration = plan.getDuration();
 		duration = duration == null ? Duration.ZERO : duration; // TODO any other validation?

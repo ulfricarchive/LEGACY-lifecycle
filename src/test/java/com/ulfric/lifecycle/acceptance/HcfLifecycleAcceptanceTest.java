@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import com.google.common.truth.Truth;
 
 import com.ulfric.botch.Botch;
+import com.ulfric.commons.time.TemporalHelper;
 import com.ulfric.lifecycle.Lifecycle;
 import com.ulfric.lifecycle.adopter.StageAdopter;
 import com.ulfric.lifecycle.model.LifecyclePlan;
@@ -76,7 +77,7 @@ class HcfLifecycleAcceptanceTest extends Botch<Lifecycle> {
 		stage = stage();
 		StageAdopter.register(stage);
 
-		plan.setScheduledStart(Instant.now());
+		plan.setScheduledStart(TemporalHelper.instantNow());
 		plan.setDuration(duration);
 		plan.setStage("next");
 		plan.setNext(plans(3));
@@ -92,9 +93,9 @@ class HcfLifecycleAcceptanceTest extends Botch<Lifecycle> {
 			@Override
 			public Stage apply(LifecyclePlan plan) {
 				Stage stage = Mockito.mock(Stage.class);
-				Instant end = Instant.now().plus(plan.getDuration());
+				Instant end = TemporalHelper.instantNowPlus(plan.getDuration());
 				Mockito.when(stage.timeRemaining()).then(parameters -> {
-					Duration remaining = Duration.between(Instant.now(), end);
+					Duration remaining = TemporalHelper.betweenNowAnd(end);
 					return remaining.isNegative() ? Duration.ZERO : remaining;
 				});
 				Mockito.when(stage.toString()).thenReturn(plan.toString());

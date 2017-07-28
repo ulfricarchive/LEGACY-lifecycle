@@ -1,5 +1,6 @@
 package com.ulfric.lifecycle.stage;
 
+import com.ulfric.commons.time.TemporalHelper;
 import com.ulfric.dragoon.reflect.Classes;
 import com.ulfric.servix.services.lifecycle.Stage;
 
@@ -20,7 +21,7 @@ public abstract class HcfStage implements Stage {
 
 	@Override
 	public Duration timeRemaining() {
-		Duration remaining = Duration.between(Instant.now(), end);
+		Duration remaining = TemporalHelper.betweenNowAnd(end);
 		return remaining.isNegative() ? Duration.ZERO : remaining; // TODO cache if negative?
 	}
 
