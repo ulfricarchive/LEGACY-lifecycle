@@ -69,9 +69,10 @@ public class HcfLifecycle implements LifecycleService {
 	}
 
 	private void transition(Stage newStage) {
-		LifecycleStageEvent event = new LifecycleStageEvent(this, newStage);
-		Bukkit.getPluginManager().callEvent(event);
+		Stage oldStage = currentStage;
 		currentStage = newStage;
+		LifecycleStageEvent event = new LifecycleStageEvent(this, oldStage, newStage);
+		Bukkit.getPluginManager().callEvent(event);
 
 		if (stageTransition != null) {
 			stageTransition.cancel();

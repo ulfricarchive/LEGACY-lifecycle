@@ -3,4 +3,4 @@ main: com.ulfric.lifecycle.Lifecycle
 version: 1.0.0
 author: Ulfric Projects
 load: STARTUP
-depend: [Platform]
+depend: [Platform, Monty]

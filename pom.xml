@@ -41,6 +41,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.ulfric.monty</groupId>
+			<artifactId>monty</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.ulfric.botch</groupId>
 			<artifactId>botch</artifactId>
 			<version>1.0.0</version>
