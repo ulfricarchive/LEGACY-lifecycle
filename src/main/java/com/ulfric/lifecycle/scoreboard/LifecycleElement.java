@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LifecycleElement implements Element {
+public class LifecycleElement extends Element {
 
 	@Override
 	public Text apply(Player player) { // TODO handle new lines
@@ -34,7 +34,7 @@ public class LifecycleElement implements Element {
 
 		String name = stage.getName();
 		String lowerCaseName = name.toLowerCase();
-		String key = "scoreboard-lifecycle-" + lowerCaseName;
+		String key = "lifecycle-scoreboard-" + lowerCaseName;
 
 		String header = LocaleService.getMessage(player, key + "-header",
 				Collections.singletonMap("stage", name));
