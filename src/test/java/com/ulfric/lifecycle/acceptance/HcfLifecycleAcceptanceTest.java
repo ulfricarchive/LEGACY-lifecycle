@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.common.truth.Truth;
@@ -49,12 +49,13 @@ class HcfLifecycleAcceptanceTest extends Botch<Lifecycle> {
 		writeField("scheduler", scheduler);
 		writeField("plan", plan);
 
-		Mockito.when(scheduler.runOnMainThreadLater(Matchers.any(), Matchers.any()))
+		Mockito.when(scheduler.runOnMainThreadLater(ArgumentMatchers.any(), ArgumentMatchers.any()))
 			.then(parameters -> {
-				TemporalAmount amount = parameters.getArgumentAt(1, TemporalAmount.class);
+				TemporalAmount amount = parameters.getArgument(1);
 				long millis = Duration.from(amount).toMillis();
 				Thread.sleep(millis);
-				parameters.getArgumentAt(0, Runnable.class).run();
+				Runnable runnable = parameters.getArgument(0);
+				runnable.run();
 				return Mockito.mock(Task.class);
 			});
 	}
@@ -85,7 +86,7 @@ class HcfLifecycleAcceptanceTest extends Botch<Lifecycle> {
 		service.begin();
 
 		Truth.assertThat(service.currentStage()).isNull();
-		Mockito.verify(scheduler, Mockito.atLeast(3)).runOnMainThreadLater(Matchers.any(), Matchers.eq(duration));
+		Mockito.verify(scheduler, Mockito.atLeast(3)).runOnMainThreadLater(ArgumentMatchers.any(), ArgumentMatchers.eq(duration));
 	}
 
 	private StageAdopter stage() {
