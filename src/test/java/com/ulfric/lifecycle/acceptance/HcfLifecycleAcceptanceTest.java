@@ -3,8 +3,6 @@ package com.ulfric.lifecycle.acceptance;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
@@ -27,7 +25,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.TemporalAmount;
 
-@RunWith(JUnitPlatform.class)
 class HcfLifecycleAcceptanceTest extends Botch<Lifecycle> {
 
 	private final Duration duration = Duration.ofMillis(1);
