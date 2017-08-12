@@ -8,7 +8,7 @@ import com.ulfric.lifecycle.scoreboard.LifecycleScoreboardContainer;
 import com.ulfric.lifecycle.service.HcfLifecycle;
 import com.ulfric.lifecycle.stage.EndOfTheWorldAdopter;
 import com.ulfric.lifecycle.stage.StartOfTheWorldAdopter;
-import com.ulfric.platform.Plugin;
+import com.ulfric.plugin.Plugin;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
 
 public class Lifecycle extends Plugin {
