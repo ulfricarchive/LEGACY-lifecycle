@@ -5,11 +5,9 @@ import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Permission;
 import com.ulfric.andrew.Sync;
 import com.ulfric.commons.naming.Name;
+import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
 import com.ulfric.servix.services.lifecycle.Stage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Sync
 @Name("lifecycle")
@@ -28,15 +26,15 @@ public class LifecycleCommand implements Command {
 		if (current == null) {
 			context.getSender().sendMessage("lifecycle-current-not-started");
 		} else {
-			Map<String, String> details = details();
-			details.put("stage", current.getName());
-			details.put("timeRemaining", String.valueOf(current.timeRemaining()));
+			Details details = details();
+			details.add("stage", current.getName());
+			details.add("timeRemaining", String.valueOf(current.timeRemaining()));
 			context.getSender().sendMessage("lifecycle-current", details);
 		}
 	}
 
-	protected Map<String, String> details() {
-		return new HashMap<>();
+	protected Details details() {
+		return new Details();
 	}
 
 }

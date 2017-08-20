@@ -4,10 +4,9 @@ import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Permission;
 import com.ulfric.andrew.Sync;
 import com.ulfric.commons.naming.Name;
+import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
 import com.ulfric.servix.services.lifecycle.Stage;
-
-import java.util.Map;
 
 @Sync
 @Name("next")
@@ -28,8 +27,8 @@ public class LifecycleNextCommand extends LifecycleCommand {
 			return;
 		}
 
-		Map<String, String> details = details();
-		details.put("oldStage", oldStage.getName());
+		Details details = details();
+		details.add("oldStage", oldStage.getName());
 
 		service.nextStage();
 
@@ -39,7 +38,7 @@ public class LifecycleNextCommand extends LifecycleCommand {
 			return;
 		}
 
-		details.put("newStage", newStage.getName());
+		details.add("newStage", newStage.getName());
 		context.getSender().sendMessage("lifecycle-next", details); // TODO show the current stage?
 	}
 

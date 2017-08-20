@@ -2,6 +2,7 @@ package com.ulfric.lifecycle.scoreboard;
 
 import org.bukkit.entity.Player;
 
+import com.ulfric.i18n.content.Details;
 import com.ulfric.monty.element.Element;
 import com.ulfric.monty.text.Text;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
@@ -9,8 +10,6 @@ import com.ulfric.servix.services.lifecycle.Stage;
 import com.ulfric.servix.services.locale.LocaleService;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LifecycleElement extends Element {
 
@@ -37,13 +36,13 @@ public class LifecycleElement extends Element {
 		String key = "lifecycle-scoreboard-" + lowerCaseName;
 
 		String header = LocaleService.getMessage(player, key + "-header",
-				Collections.singletonMap("stage", name));
+				Details.of("stage", name));
 		text.setTitle(header);
 
-		Map<String, String> context = new HashMap<>();
-		context.put("stage", stage.getName());
-		context.put("remaining", String.valueOf(stage.timeRemaining())); // TODO formatted time
-		String body = LocaleService.getMessage(player, key + "-body", context);
+		Details details = new Details();
+		details.add("stage", stage.getName());
+		details.add("remaining", String.valueOf(stage.timeRemaining())); // TODO formatted time
+		String body = LocaleService.getMessage(player, key + "-body", details);
 		text.setBody(Collections.singletonList(body));
 
 		return text;
