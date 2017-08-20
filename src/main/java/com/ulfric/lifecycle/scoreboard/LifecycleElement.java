@@ -2,6 +2,7 @@ package com.ulfric.lifecycle.scoreboard;
 
 import org.bukkit.entity.Player;
 
+import com.ulfric.fancymessage.Message;
 import com.ulfric.i18n.content.Details;
 import com.ulfric.monty.element.Element;
 import com.ulfric.monty.text.Text;
@@ -35,14 +36,13 @@ public class LifecycleElement extends Element {
 		String lowerCaseName = name.toLowerCase();
 		String key = "lifecycle-scoreboard-" + lowerCaseName;
 
-		String header = LocaleService.getMessage(player, key + "-header",
-				Details.of("stage", name));
+		String header = Message.toLegacy(LocaleService.getMessage(player, key + "-header", Details.of("stage", name)));
 		text.setTitle(header);
 
 		Details details = new Details();
 		details.add("stage", stage.getName());
 		details.add("remaining", String.valueOf(stage.timeRemaining())); // TODO formatted time
-		String body = LocaleService.getMessage(player, key + "-body", details);
+		String body = Message.toLegacy(LocaleService.getMessage(player, key + "-body", details));
 		text.setBody(Collections.singletonList(body));
 
 		return text;
