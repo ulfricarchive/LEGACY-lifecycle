@@ -7,6 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
 import com.ulfric.servix.services.lifecycle.Stage;
+import com.ulfric.servix.services.locale.TellService;
 
 @Sync
 @Name("begin")
@@ -32,9 +33,9 @@ public class LifecycleBeginCommand extends LifecycleCommand {
 			context.getSender().sendMessage("lifecycle-begin-no-stage");
 			return;
 		}
-		Details details = details();
-		details.add("stage", stage.getName());
-		context.getSender().sendMessage("lifecycle-begin", details); // TODO show the current stage?
+
+		Details details = Details.of("stage", stage);
+		TellService.sendMessage(context.getSender(), "lifecycle-begin", details); // TODO show the current stage?
 	}
 
 }

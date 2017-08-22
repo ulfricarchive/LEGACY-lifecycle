@@ -5,9 +5,11 @@ import com.ulfric.andrew.Context;
 import com.ulfric.andrew.Permission;
 import com.ulfric.andrew.Sync;
 import com.ulfric.commons.naming.Name;
+import com.ulfric.i18n.content.Detail;
 import com.ulfric.i18n.content.Details;
 import com.ulfric.servix.services.lifecycle.LifecycleService;
 import com.ulfric.servix.services.lifecycle.Stage;
+import com.ulfric.servix.services.locale.TellService;
 
 @Sync
 @Name("lifecycle")
@@ -26,15 +28,11 @@ public class LifecycleCommand implements Command {
 		if (current == null) {
 			context.getSender().sendMessage("lifecycle-current-not-started");
 		} else {
-			Details details = details();
-			details.add("stage", current.getName());
-			details.add("timeRemaining", String.valueOf(current.timeRemaining()));
-			context.getSender().sendMessage("lifecycle-current", details);
+			Details details = Details.of(
+					Detail.single("stage", current),
+					Detail.single("timeRemaining", current.timeRemaining()));
+			TellService.sendMessage(context.getSender(), "lifecycle-current", details);
 		}
-	}
-
-	protected Details details() {
-		return new Details();
 	}
 
 }
