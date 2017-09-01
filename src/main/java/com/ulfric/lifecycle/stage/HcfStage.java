@@ -22,7 +22,7 @@ public abstract class HcfStage implements Stage {
 	@Override
 	public Duration timeRemaining() {
 		Duration remaining = TemporalHelper.betweenNowAnd(end);
-		return remaining.isNegative() ? Duration.ZERO : remaining; // TODO cache if negative?
+		return remaining.isNegative() ? Duration.ZERO : remaining;
 	}
 
 	@Override
