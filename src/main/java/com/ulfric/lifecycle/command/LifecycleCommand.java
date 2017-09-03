@@ -29,8 +29,8 @@ public class LifecycleCommand implements Command {
 			context.getSender().sendMessage("lifecycle-current-not-started");
 		} else {
 			Details details = Details.of(
-					Detail.single("stage", current),
-					Detail.single("timeRemaining", current.timeRemaining()));
+					Detail.of("stage", current),
+					Detail.of("timeRemaining", current.timeRemaining()));
 			TellService.sendMessage(context.getSender(), "lifecycle-current", details);
 		}
 	}
